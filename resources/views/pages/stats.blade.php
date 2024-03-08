@@ -5,6 +5,12 @@
       <h3 class="text-center">Historico de preguntas</h3>
       <p class="text-center" style="text-wrap: balance;">Estan ordenadas de más nuevas a más antiguas<br>Boton azul para ver las preguntas de opción multiple y botón verde para ver las preguntas abiertas</p>
       <?php $questions = json_decode($questions); ?>
+      @if($questions == null)
+      <div class="container mt-5 pb-5 text-center">
+        <h4 class="fs-2">Aún no hay preguntas realizadas😢</h4>
+        <span>Puedes empezar realizando preguntas haciendo <a href="/edit" class="text-muted">Click acá</a></span>
+      </div>
+      @else
       @foreach ($questions as $index => $question)
       <div class="row gap-4 d-flex justify-content-center">
         @if($question->type_id == 1)
@@ -16,6 +22,7 @@
 
       </div>
       @endforeach
+      @endif
     </div>
   </x-layout>
   <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -75,7 +82,7 @@
           },
         },
         legend: {
-          enabled: true,
+          enabled: false,
         },
         plotOptions: {
           series: {

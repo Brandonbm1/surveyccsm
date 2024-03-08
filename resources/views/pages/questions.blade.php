@@ -22,6 +22,18 @@
         <h3 class="px-1">Preguntas</h3>
         <ol class="container ps-4 pe-0 ">
           <?php $questions = json_decode($questions); ?>
+          @if($questions == null)
+          <div class="container mt-5 pb-5 text-center">
+            <h4 class="fs-2">Aún no hay preguntas realizadas😢</h4>
+            <span>Puedes empezar realizando preguntas haciendo <a href="/edit" class="text-muted">Click acá</a></span>
+          </div>
+          @else
+          @if(count($questions) < 2)
+            <div class="container mt-5 pb-5 text-center">
+              <h4 class="fs-2">Se requieren al menos 2 preguntas, una abierta y otra de selección multiple😎</h4>
+              <span>Puedes agregar más preguntas haciendo <a href="/edit" class="text-muted">Click acá</a></span>
+            </div>
+          @endif
           @foreach ($questions as $index => $question)
           <li class="form-group p-0 mb-4">
             <p class="description mb-2">{{$question->description}}</p>
@@ -43,6 +55,7 @@
             @endif
           </li>
           @endforeach
+          @endif
         </ol>
         <input class="btn btn-primary fw-bold fs-5" style="max-width: 40%" type="submit" value="Enviar">
       </form>

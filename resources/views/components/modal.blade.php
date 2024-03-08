@@ -13,9 +13,9 @@
                         <input type="text" name="description" class="form-control" id="question">
                     </div>
                     @if($dataTarget == 'editModalMultiple')
-                    <div class="row" id="container_options">
-                        <div class="col-6 form-group">
-                            <label class="form-label">
+                    <div class="row mb-3" id="container_options">
+                        <div class="col-12 col-md-6 form-group">
+                            <label class="form-label w-100">
                                 Option
                                 <input type="text" name="optiondescription[]" class="form-control">
                             </label>
@@ -39,9 +39,9 @@
     const addNewOptions = () => {
         let container = document.querySelector('#container_options');
         let newOption = document.createElement('div');
-        newOption.classList.add('col-6s', 'form-group');
+        newOption.classList.add('col-12', 'col-md-6', 'form-group');
         newOption.innerHTML = `
-                <label class="form-label">
+                <label class="form-label w-100">
                     Option 
                     <input type="text" name="optiondescription[]" class="form-control">
                 </label>

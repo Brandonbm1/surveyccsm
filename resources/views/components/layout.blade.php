@@ -22,13 +22,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+              <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/stats">Estadisticas</a>
+              <a class="nav-link {{ Request::is('stats') ? 'active' : '' }}" href="/stats">Estadisticas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/edit">Editar</a>
+              <a class="nav-link {{ Request::is('edit') ? 'active' : '' }}" href="/edit">Editar</a>
             </li>
           </ul>
     </nav>
@@ -43,7 +43,7 @@
       <div class="row">
         <div class="col text-center">
           <p class="text-muted">&copy; {{ date('Y') }} Brandon Brito </p>
-          <small class="text-muted d-block">Entrevista para la Camara de comercio de Santa Marta</small>
+          <small class="text-muted d-block">Entrevista para la Camara de Comercio de Santa Marta</small>
           <img src="/logofooter.png" style="max-width: 80px;" alt="Logo de la Camara de Comercio de Santa Marta">
         </div>
       </div>

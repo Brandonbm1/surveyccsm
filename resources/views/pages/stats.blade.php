@@ -11,17 +11,19 @@
         <span>Puedes empezar realizando preguntas haciendo <a href="/edit" class="text-muted">Click acá</a></span>
       </div>
       @else
-      @foreach ($questions as $index => $question)
-      <div class="row gap-4 d-flex justify-content-center">
-        @if($question->type_id == 1)
-        <button class="btn btn-primary fetchQuestion" data-type="{{$question->type_id}}" data-id="{{$question->id}}">{{$question->description}}</button>
-        @else
-        <button class="btn btn-success fetchQuestion" data-type="{{$question->type_id}}" data-id="{{$question->id}}">{{$question->description}}</button>
-        @endif
-        <article id="article{{$index}}" class="col-8"></article>
+      <div class="row gap-4">
 
+        @foreach ($questions as $index => $question)
+        <div class="row gap-4 d-flex justify-content-center">
+          @if($question->type_id == 1)
+          <button class="btn btn-primary fetchQuestion" data-type="{{$question->type_id}}" data-id="{{$question->id}}">{{$question->description}}</button>
+          @else
+          <button class="btn btn-success fetchQuestion" data-type="{{$question->type_id}}" data-id="{{$question->id}}">{{$question->description}}</button>
+          @endif
+          <article id="article{{$index}}" class="col-8"></article>  
+        </div>
+        @endforeach
       </div>
-      @endforeach
       @endif
     </div>
   </x-layout>
@@ -52,7 +54,6 @@
               <ul>
                 ${data.map(answer => `<li>${answer.description}</li>`).join('')}
               </ul>
-            
             `;
           } else {
             createChart(article.getAttribute('id'), questionDescription, data);
@@ -96,11 +97,11 @@
 
         tooltip: {
           headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
+          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>',
         },
 
         series: [{
-          name: "Browsers",
+          name: "Respuestas",
           colorByPoint: true,
           data: data,
         }, ],

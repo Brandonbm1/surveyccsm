@@ -23,3 +23,4 @@ Route::post('create_question', [QuestionController::class, 'create'])->name('cre
 Route::post('send_answer', [AnswerController::class, 'reply'])->name('send_answer');
 Route::get('stats', [QuestionController::class, 'index'])->name('stats');
 Route::get('answers/{id}/{type}', [AnswerController::class, 'index'])->name('answers');
+Route::put('update_question', [QuestionController::class, 'update'])->name('update_question');

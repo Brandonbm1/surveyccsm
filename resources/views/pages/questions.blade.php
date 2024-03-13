@@ -8,6 +8,15 @@
         margin-left: 4px;
       }
 
+      .button-modify {
+        background-color: #212329;
+        width: 2rem;
+        height: 2rem;
+        padding: 0.4rem;
+        border: none;
+        border-radius: .4rem;
+      }
+
       li::marker,
       li>p {
         font-size: 1.2rem;
@@ -28,37 +37,43 @@
             <span>Puedes empezar realizando preguntas haciendo <a href="/edit" class="text-muted">Click acá</a></span>
           </div>
           @else
-          @if(count($questions) < 2)
-            <div class="container mt-5 pb-5 text-center">
-              <h4 class="fs-2">Se requieren al menos 2 preguntas, una abierta y otra de selección multiple😎</h4>
-              <span>Puedes agregar más preguntas haciendo <a href="/edit" class="text-muted">Click acá</a></span>
-            </div>
-          @endif
-          @foreach ($questions as $index => $question)
-          <li class="form-group p-0 mb-4">
-            <p class="description mb-2">{{$question->description}}</p>
-            <input type="hidden" name="question_ids[]" value="{{ $question->id }}">
-            @if($question->type_id == 1)
-            @foreach ($question->options as $option)
-            <div class="form-check">
-              <label class="form-check-label" style="display: block; cursor: pointer;">
-                <input class="form-check-input" style="cursor: pointer;" type="radio" name="question_option" id="question{{ $index }}_{{ $loop->index }}" value="{{ $option }}">
-                {{$option}}
-              </label>
-            </div>
-            @endforeach
-            @else
-            <div class="form-floating">
-              <textarea class="form-control" placeholder="Leave a comment here" id="question" name="question"></textarea>
-              <label for="question">Pregunta abierta</label>
+          @if(count($questions) < 2) <div class="container mt-5 pb-5 text-center">
+            <h4 class="fs-2">Se requieren al menos 2 preguntas, una abierta y otra de selección multiple😎</h4>
+            <span>Puedes agregar más preguntas haciendo <a href="/edit" class="text-muted">Click acá</a></span>
             </div>
             @endif
-          </li>
-          @endforeach
-          @endif
+            @foreach ($questions as $index => $question)
+            <li class="form-group p-0 mb-5 position-relative">
+              <div class="position-absolute" style="top: -2rem; right: 0;">
+                <button type="button" class="button-modify" data-bs-toggle="modal" data-bs-target="{{ $question->type_id === 1 ? '#editModalMultiple' : '#editModalOpen'}}">
+                  <img src="/modifyicon.svg" alt="Edit Icon">
+                </button>
+              </div>
+              <p class="description mb-2">{{$question->description}}</p>
+              <input type="hidden" name="question_ids[]" value="{{ $question->id }}">
+              @if($question->type_id == 1)
+              @foreach ($question->options as $option)
+              <div class="form-check">
+                <label class="form-check-label" style="display: block; cursor: pointer;">
+                  <input class="form-check-input" style="cursor: pointer;" type="radio" name="question_option" id="question{{ $index }}_{{ $loop->index }}" value="{{ $option }}">
+                  {{$option}}
+                </label>
+              </div>
+              @endforeach
+              @else
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="question" name="question"></textarea>
+                <label for="question">Pregunta abierta</label>
+              </div>
+              @endif
+            </li>
+            @endforeach
+            @endif
         </ol>
         <input class="btn btn-primary fw-bold fs-5" style="max-width: 40%" type="submit" value="Enviar">
       </form>
+      <x-modal dataTarget="editModalMultiple" dataTitle="Modificar pregunta" dataRoute="update_question" dataId="{{$questions[0]->id}}"></x-modal>
+      <x-modal dataTarget="editModalOpen" dataTitle="Modificar pregunta" dataRoute="update_question" dataId="{{$questions[1]->id}}"></x-modal>
     </section>
     @if ($errors->any())
     <div class="position-absolute toast align-items-center border-0" style="top: 1rem; left: 50%; background-color: #fde8e7" role="alert" aria-live="assertive" aria-atomic="true">

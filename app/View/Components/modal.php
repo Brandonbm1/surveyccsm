@@ -10,13 +10,17 @@ class modal extends Component
 {
     public $dataTarget;
     public $dataTitle;
+    public $dataRoute;
+    public $dataId;
     /**
      * Create a new component instance.
      */
-    public function __construct($dataTarget, $dataTitle)
+    public function __construct($dataTarget, $dataTitle, $dataRoute, $dataId = null)
     {
         $this->dataTarget = $dataTarget;
         $this->dataTitle = $dataTitle;
+        $this->dataRoute = $dataRoute;
+        $this->dataId = $dataId;
     }
 
     /**

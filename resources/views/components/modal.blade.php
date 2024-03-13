@@ -6,12 +6,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{route('create_question')}}">
+                <form method="POST" action="{{route($dataRoute)}}">
                     @csrf
+                    @if($dataRoute == 'update_question')
+                    @method('PUT')
+                    @endif
+                    <input type="text" name="id" value="{{$dataId}}" hidden>
                     <div class="form-group">
                         <label for="question" class="form-label">Pregunta</label>
                         <input type="text" name="description" class="form-control" id="question">
                     </div>
+                    <!-- Si es el modal de editar y la pregunta es la pregunta de multiple respuesta -->
+                    @if($dataRoute == 'update_question' && $dataTarget == 'editModalMultiple')
+                    <label">
+                        <input type="checkbox" name="updateOptions" id="updateOptions" checked>
+                        Actualizar opciones
+                        </label>
+                    @endif
                     @if($dataTarget == 'editModalMultiple')
                     <div class="row mb-3" id="container_options">
                         <div class="col-12 col-md-6 form-group">
@@ -49,4 +60,19 @@
         container.appendChild(newOption);
     }
     document.querySelector('#addNewOption').addEventListener('click', addNewOptions);
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('#updateOptions').addEventListener('change', function() {
+            let containerOptions = document.querySelector('#container_options');
+            let addButton = document.querySelector('#addNewOption')
+            if (this.checked) {
+                containerOptions.style.display = 'block';
+                addButton.style.display = 'block';
+            } else {
+                containerOptions.style.display = 'none';
+                addButton.style.display = 'none';
+            }
+        });
+    });
 </script>

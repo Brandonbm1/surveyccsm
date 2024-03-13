@@ -35,8 +35,8 @@
       </div>
       @endif
 
-      <x-modal dataTarget="editModalMultiple" dataTitle="Cambiar pregunta de opción multiple"></x-modal>
-      <x-modal dataTarget="editModalOpen" dataTitle="Cambiar pregunta abierta"></x-modal>
+      <x-modal dataTarget="editModalMultiple" dataTitle="Cambiar pregunta de opción multiple" dataRoute="create_question"></x-modal>
+      <x-modal dataTarget="editModalOpen" dataTitle="Cambiar pregunta abierta" dataRoute="create_question"></x-modal>
   </x-layout>
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {

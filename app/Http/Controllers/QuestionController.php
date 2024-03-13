@@ -48,8 +48,6 @@ class QuestionController extends Controller
                     ]);
             }
         }
-
-        // print_r($question->id);
         return redirect()->back()->with('success', '¡Datos guardados correctamente!');
     }
     // Función para desactivar las preguntas de un tipo (tipo 1: opción múltiple, tipo 2: abierta)
@@ -70,7 +68,28 @@ class QuestionController extends Controller
                 $question->options = $question->options()->pluck('description');
             }
         }
-
+        // return response()->json($questions);
         return view('pages.questions', ['questions' => json_encode($questions)]);
+    }
+    public function update(Request $request)
+    {
+        $question = Question::find($request->id);
+        if(!$question)
+            return redirect()->back()->withErrors(['description' => 'La pregunta no existe']);
+        $question->description = $request->description;
+        if ($request->type === "1") {
+            if ($request->updateOptions !== null) {
+                $question->options()->delete();
+                foreach ($request->optiondescription as $option) {
+                    if($option !== null)
+                        $question->options()->create([
+                            'description' => $option,
+                        ]);
+                }
+            }
+        }
+        $question->save();
+        return redirect()->back()->with('success', '¡Datos guardados correctamente!')->withInput();
+
     }
 }

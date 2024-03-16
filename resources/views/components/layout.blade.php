@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -20,20 +20,25 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav w-100">
             <li class="nav-item">
               <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">Inicio</a>
             </li>
             <li class="nav-item">
               <a class="nav-link {{ Request::is('stats') ? 'active' : '' }}" href="/stats">Estadisticas</a>
             </li>
+            @if(Auth::check() && Auth::user()->role == 'admin')
             <li class="nav-item">
               <a class="nav-link {{ Request::is('edit') ? 'active' : '' }}" href="/edit">Editar</a>
             </li>
+            @endif
+            <li class="nav-item ms-lg-auto">
+              <a class="nav-link" href="{{ route('logout') }}">Cerrar Sesión</a>
+            </li>
           </ul>
+        </div>
+      </div>
     </nav>
-    </div>
-    </div>
   </header>
   <main class="position-relative container py-5" style="flex-basis:85%">
     {{$slot}}

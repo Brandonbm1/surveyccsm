@@ -1,4 +1,3 @@
-<body>
   <x-layout>
     <x-slot:title>Preguntas</x-slot:title>
     <style>
@@ -15,6 +14,9 @@
         padding: 0.4rem;
         border: none;
         border-radius: .4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       li::marker,
@@ -44,11 +46,13 @@
             @endif
             @foreach ($questions as $index => $question)
             <li class="form-group p-0 mb-5 position-relative">
+              @if(Auth::check() && Auth::user()->role == 'admin')
               <div class="position-absolute" style="top: -2rem; right: 0;">
                 <button type="button" class="button-modify" data-bs-toggle="modal" data-bs-target="{{ $question->type_id === 1 ? '#editModalMultiple' : '#editModalOpen'}}">
                   <img src="/modifyicon.svg" alt="Edit Icon">
                 </button>
               </div>
+              @endif
               <p class="description mb-2">{{$question->description}}</p>
               <input type="hidden" name="question_ids[]" value="{{ $question->id }}">
               @if($question->type_id == 1)
@@ -109,5 +113,3 @@
       toastList.forEach(toast => toast.show()); // This show them
     });
   </script>
-
-</body>

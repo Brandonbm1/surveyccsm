@@ -14,6 +14,9 @@ class QuestionController extends Controller
         $questions = Question::orderBy('active', 'desc')->orderBy('id', 'desc')->get();
         return view('pages.stats', ['questions' => json_encode($questions)]);
     }
+    public function editView(){
+        return view('pages.edit');
+    }
     public function create(Request $request)
     {
         $data = $request->all();
